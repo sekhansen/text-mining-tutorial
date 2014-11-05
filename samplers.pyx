@@ -20,6 +20,8 @@ FTYPE = np.float
 ctypedef np.int_t DTYPE_t
 ctypedef np.float_t FTYPE_t
 
+#Using cython_gsl, we can directly call any gsl routine
+from cython_gsl cimport *
 
 cdef extern from "gsl/gsl_rng.h":
 	ctypedef struct gsl_rng_type:
