@@ -34,8 +34,6 @@ cdef:
 
 	#Initialize seed 
 	void gsl_rng_set(gsl_rng* r, unsigned long int seed)
-
-	#Keep all references/cdefs of r together in same cdef (to avoid previous warning)
 	double gsl_rng_uniform(gsl_rng * r)
 	
 
