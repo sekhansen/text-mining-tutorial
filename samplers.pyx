@@ -23,8 +23,7 @@ ctypedef np.float_t FTYPE_t
 #Using cython_gsl, we can directly call any gsl routine
 from cython_gsl cimport *
 
-#No need for extern "gsl/gsl_rng.h" with cython_gsl module
-cdef:
+cdef extern from "gsl/gsl_rng.h":
 	ctypedef struct gsl_rng_type:
 		pass
 	ctypedef struct gsl_rng:
