@@ -3,6 +3,7 @@
 
 Python module for topic modelling with three classes:
 (1) RawDocs: cleans and processes raw text data for input into topic model.
+(2) Count: count tokens in processed text
 (2) LDA: estimate Latent Dirichlet Allocation topic model via collapsed Gibbs sampling.
 (3) Query: use estimated topic model to sample distribution of topics in out-of-sample documents.
 
@@ -14,7 +15,6 @@ from __future__ import division
 import codecs,collections,itertools,os,re
 import numpy as np
 import pandas as pd
-from scipy.stats import itemfreq
 
 from nltk.tokenize import wordpunct_tokenize
 from nltk import PorterStemmer
@@ -116,7 +116,7 @@ class RawDocs():
 			try: self.docs = [s.encode('utf-8').decode('utf-8') for s in doc_data]
 			except UnicodeDecodeError: print "At least one string does not have utf-8 encoding"
 		else:
-			print "Either iterable of strings or file must be passed to RawDocs"
+			raise ValueError('message'"Either iterable of strings or file must be passed to RawDocs")
 
 		self.docs = [s.lower() for s in self.docs]
 
@@ -186,9 +186,8 @@ class RawDocs():
 			self.stems = map(remove,self.stems)
 
 		else: 
-			print "Items must be either \'tokens\' or \'stems\'."
-			return 0
-		
+			raise ValueError("Items must be either \'tokens\' or \'stems\'.")
+
 		
 	def tf_idf(self,items,print_output=True):
 
@@ -231,8 +230,7 @@ class RawDocs():
 					for p in self.tfidf_ranking_stems: f.write("%s,%f\n" % (p[0],p[1]))
 
 		else: 
-			print "Items must be either \'tokens\' or \'stems\'."
-			return 0
+			raise ValueError("Items must be either \'tokens\' or \'stems\'.")
 
 
 class Count():
@@ -273,8 +271,12 @@ class Count():
 
 	def negative(self):
 
+		"""
+		Count negative words as defined in Loughran and McDonald (2011), Journal of Finance
+		"""
+
 		if hasattr(self, 'negative_words') == False:
-			word_file = '/Users/stephenhansen/pymodule' + "/negative.txt"
+			word_file = "negative.txt"
 			with codecs.open(word_file,"r","utf-8") as f:raw=f.read()
 			self.negative_words = raw.splitlines()
 
@@ -287,8 +289,12 @@ class Count():
 
 	def uncertainty(self):
 
+		"""
+		Count uncertainty words as defined in Loughran and McDonald (2011), Journal of Finance
+		"""
+
 		if hasattr(self, 'uncertainty_words') == False:
-			word_file = '/Users/stephenhansen/pymodule' + "/uncertainty.txt"
+			word_file = "uncertainty.txt"
 			with codecs.open(word_file,"r","utf-8") as f:raw=f.read()
 			self.uncertainty_words = raw.splitlines()
 
@@ -358,11 +364,15 @@ class LDA():
 
 		"""
 		Allocate sampled topics to the documents rather than estimate them.
+		Automatically generate term-topic and document-topic matrices.
 		"""
 
 		assert sampled_topics.dtype == np.int and sampled_topics.shape[1] == (self.N,)		
 		self.sampled_topics = sampled_topics
 		self.samples = sampled_topics.shape[0]
+
+		self.tt = self.tt_comp(self.sampled_topics)
+		self.dt = self.dt_comp(self.sampled_topics)
 
 
 	def sample(self,burnin,thinning,samples,append=True):
