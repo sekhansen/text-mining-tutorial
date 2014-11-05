@@ -136,10 +136,10 @@ class RawDocs():
 		"""
 		Strip out non-alphanumeric tokens.
 
-	    length: remove tokens of length "length" or less.
+		length: remove tokens of length "length" or less.
 
-	    numbers: strip out non-alpha tokens.
-	    """
+		numbers: strip out non-alpha tokens.
+		"""
 
 		def clean1(tokens): return [t for t in tokens if t.isalpha() == 1 and len(t) > length]
 		def clean2(tokens): return [t for t in tokens if t.isalnum() == 1 and len(t) > length]
@@ -152,8 +152,8 @@ class RawDocs():
 
 		"""
 		Stem tokens with Porter Stemmer.
-	    """
-	
+		"""
+
 		def s(tokens): return [PorterStemmer().stem(t) for t in tokens]
 		self.stems = map(s,self.tokens)
 
@@ -367,9 +367,12 @@ class LDA():
 		Automatically generate term-topic and document-topic matrices.
 		"""
 
-		assert sampled_topics.dtype == np.int and sampled_topics.shape[1] == (self.N,)		
-		self.sampled_topics = sampled_topics
-		self.samples = sampled_topics.shape[0]
+		assert sampled_topics.dtype == np.int and len(sampled_topics.shape) < 2 	
+
+		if len(sampled_topics.shape) == 1: self.sampled_topics = sampled_topics.reshape(1,sampled_topics.shape[0])
+		else: self.sampled_topics = self.sampled_topics
+
+		self.samples = self.sampled_topics.shape[0]
 
 		self.tt = self.tt_comp(self.sampled_topics)
 		self.dt = self.dt_comp(self.sampled_topics)
