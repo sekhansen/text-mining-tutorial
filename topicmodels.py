@@ -116,7 +116,7 @@ class RawDocs():
 			try: self.docs = [s.encode('utf-8').decode('utf-8') for s in doc_data]
 			except UnicodeDecodeError: print "At least one string does not have utf-8 encoding"
 		else:
-			raise ValueError('message'"Either iterable of strings or file must be passed to RawDocs")
+			raise ValueError("Either iterable of strings or file must be passed to RawDocs")
 
 		self.docs = [s.lower() for s in self.docs]
 
