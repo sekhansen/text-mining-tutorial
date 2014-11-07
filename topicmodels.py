@@ -164,8 +164,8 @@ class RawDocs():
 		Remove stopwords from either tokens (items = "tokens") or stems (items = "stems")
 
 		threshold: remove words whose corpus-level tf-idf score is less than or 
-			equal to that of the treshold-th ranked item (requires call to tf_idf first to define ranking)
-	    """
+		equal to that of the treshold-th ranked item (requires call to tf_idf first to define ranking)
+		"""
 	
 		def remove(tokens): return [t for t in tokens if t not in to_remove]
 		
@@ -195,7 +195,7 @@ class RawDocs():
 		Calculate corpus-level tf-idf score on either tokens (items = "tokens") or stems (items = "stems").
 
 		Print to file if print_output = True.
-	    """
+		"""
 	
 		if items == 'stems': v = self.stems
 		elif items == 'tokens': v = self.tokens
