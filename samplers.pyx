@@ -90,6 +90,8 @@ def sampler(DTYPE_t [:] docs,
 	cdef int sample = 0
 	cdef int maxiter = burnin + thinning*samples
 	cdef double* p = <double*> malloc(K*sizeof(double))
+    if not p:
+        raise MemoryError()
 
 	#initialize topic counts
 
