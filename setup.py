@@ -1,17 +1,25 @@
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
-import numpy  
-     
-#Use cython_gsl to interact with GSL 
-import cython_gsl
+ 
+import numpy
+import os
+import sys
 
+if sys.platform == "win32":
+	include_gsl_dir = "C:/gsl/include"
+	lib_gsl_dir = "C:/gsl/lib"
+else:
+	include_gsl_dir = "/usr/local/include/"
+	lib_gsl_dir = "/usr/local/lib/"
+  
+     
 ext = Extension("samplers", ["samplers.pyx"],
-	libraries = cython_gsl.get_libraries(),
     include_dirs=[numpy.get_include(), 
-                  cython_gsl.get_include()],
-    library_dirs=[cython_gsl.get_cython_include_dir()])
+                  include_gsl_dir],
+    library_dirs=[lib_gsl_dir],
+    libraries=["gsl","gslcblas","m"]
+)
  
 setup(ext_modules=[ext],
-	include_dirs = [cython_gsl.get_include()],
     cmdclass = {'build_ext': build_ext})
