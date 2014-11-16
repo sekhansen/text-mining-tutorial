@@ -9,8 +9,8 @@ if sys.platform == "win32":
 	include_gsl_dir = sys.exec_prefix+"\gsl\include"
 	lib_gsl_dir = sys.exec_prefix+"\gsl\lib"
 else:
-	include_gsl_dir = "/usr/local/include/"
-	lib_gsl_dir = "/usr/local/lib/"
+	include_gsl_dir = sys.exec_prefix+"\include"
+	lib_gsl_dir = sys.exec_prefix+"\lib"
   
      
 ext = Extension("samplers", ["samplers.pyx"],
