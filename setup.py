@@ -3,12 +3,11 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
  
 import numpy
-import os
 import sys
 
 if sys.platform == "win32":
-	include_gsl_dir = "C:/gsl/include"
-	lib_gsl_dir = "C:/gsl/lib"
+	include_gsl_dir = sys.exec_prefix+"\gsl\include"
+	lib_gsl_dir = sys.exec_prefix+"\gsl\lib"
 else:
 	include_gsl_dir = "/usr/local/include/"
 	lib_gsl_dir = "/usr/local/lib/"
