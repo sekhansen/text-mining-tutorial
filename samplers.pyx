@@ -10,7 +10,7 @@ Cython script for collapsed Gibbs sampling for Latent Dirichlet Allocation (and 
 from __future__ import division
 
 from libc.stdlib cimport malloc, free
-
+from cython_gsl cimport *
 import time
 import numpy as np
 cimport numpy as np
