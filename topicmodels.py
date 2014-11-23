@@ -98,13 +98,16 @@ contractions = {
 
 class RawDocs():
     
-	def __init__(self, doc_data, stopword_file = False):
+	def __init__(self, doc_data, stopword_file = False, contraction_split = True):
 
 		"""
 		doc_data: (1) text file with each document on new line, or (2) Python iterable of strings.
 			Strings should have utf-8 encoded characters.
 
 		stopword_file: list of stopwords to remove (optional)
+
+		contraction_split: whether to split contractions into constituent words.  
+					       If not, remove all apostrophes.
 		"""
 
 		if isinstance(doc_data,str):
@@ -120,12 +123,15 @@ class RawDocs():
 
 		self.docs = [s.lower() for s in self.docs]
 
-		for k,v in contractions.iteritems():
-			self.docs = map(lambda x: re.sub(k,v,x),self.docs)
-
 		if stopword_file:
 			with codecs.open(stopword_file,'r','utf-8') as f: raw = f.read()
 			self.stopwords = set(raw.splitlines())
+
+		if contraction_split:
+			for k,v in contractions.iteritems():
+				self.docs = map(lambda x: re.sub(k,v,x),self.docs)
+		else:
+			self.docs = map(lambda x: re.sub(u'[\u2019\']', '', x), self.docs)
 
 		self.N = len(self.docs)
 		self.tokens = map(wordpunct_tokenize,self.docs)
@@ -231,78 +237,6 @@ class RawDocs():
 
 		else: 
 			raise ValueError("Items must be either \'tokens\' or \'stems\'.")
-
-
-class Count():
-
-	def __init__(self,docs):
-
-		"""
-		Class for counting tokens in docs.
-		"""
-
-		self.docs = docs
-		self.N = len(docs)		
-
-
-	def counts(self, token):
-
-		"""
-		Return number of times token appears in docs
-		"""
-	
-		def c(tokens,token): return tokens.count(token)
-		
-		token = [token]*self.N
-
-		return map(c,self.docs,token)
-
-
-	def numbers(self):
-
-		"""
-		Count numeric strings in string
-		"""
-
-		def number_count(tokens): return sum(map(lambda x: x.isnumeric(),tokens))
-
-		return map(number_count,self.docs)
-
-
-	def negative(self):
-
-		"""
-		Count negative words as defined in Loughran and McDonald (2011), Journal of Finance
-		"""
-
-		if hasattr(self, 'negative_words') == False:
-			word_file = "negative.txt"
-			with codecs.open(word_file,"r","utf-8") as f:raw=f.read()
-			self.negative_words = raw.splitlines()
-
-		def neg_count(tokens):
-			neg_counts = [tokens.count(token) for token in self.negative_words]
-			return sum(neg_counts)
-
-		return map(neg_count,self.docs)
-
-
-	def uncertainty(self):
-
-		"""
-		Count uncertainty words as defined in Loughran and McDonald (2011), Journal of Finance
-		"""
-
-		if hasattr(self, 'uncertainty_words') == False:
-			word_file = "uncertainty.txt"
-			with codecs.open(word_file,"r","utf-8") as f:raw=f.read()
-			self.uncertainty_words = raw.splitlines()
-
-		def uncertainty_count(tokens):
-			uncertainty_counts = [tokens.count(token) for token in self.uncertainty_words]
-			return sum(uncertainty_counts)
-
-		return map(uncertainty_count,self.docs)
 
 
 class LDA():
