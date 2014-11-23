@@ -7,7 +7,6 @@ Python module for topic modelling with three classes:
 (2) LDA: estimate Latent Dirichlet Allocation topic model via collapsed Gibbs sampling.
 (3) Query: use estimated topic model to sample distribution of topics in out-of-sample documents.
 
-For illustration of use, download tutorial from www.econ.upf.edu/~shansen.
 """
 
 from __future__ import division
