@@ -6,11 +6,11 @@ import numpy
 import sys
 
 if sys.platform == "win32":
-	include_gsl_dir = sys.exec_prefix+"\gsl\include"
-	lib_gsl_dir = sys.exec_prefix+"\gsl\lib"
+	include_gsl_dir = sys.exec_prefix+"\\gsl\\include"
+	lib_gsl_dir = sys.exec_prefix+"\\gsl\\lib"
 else:
-	include_gsl_dir = sys.exec_prefix+"\include"
-	lib_gsl_dir = sys.exec_prefix+"\lib"
+	include_gsl_dir = sys.exec_prefix+"\\include"
+	lib_gsl_dir = sys.exec_prefix+"\\lib"
   
      
 ext = Extension("samplers", ["samplers.pyx"],
@@ -20,5 +20,6 @@ ext = Extension("samplers", ["samplers.pyx"],
     libraries=["gsl","gslcblas","m"]
 )
  
-setup(ext_modules=[ext],
+setup(name = "samplers",
+	ext_modules=[ext],
     cmdclass = {'build_ext': build_ext})
