@@ -329,8 +329,8 @@ class LDA():
 		if hasattr(self, 'sampled_topics') and append == True:
 
 			sampled_topics = samplers.sampler(self.docid,self.tokens,self.sampled_topics[self.samples-1,:],
-												   self.N,self.V,self.K,self.D,self.alpha,self.beta,
-												   burnin,thinning,samples)
+									self.N,self.V,self.K,self.D,self.alpha,self.beta,
+									burnin,thinning,samples)
 
 			tt_temp = self.tt_comp(sampled_topics)
 			dt_temp = self.dt_comp(sampled_topics)
@@ -346,8 +346,8 @@ class LDA():
 			self.samples = samples
 
 			self.sampled_topics = samplers.sampler(self.docid,self.tokens,self.topic_seed,
-												   self.N,self.V,self.K,self.D,self.alpha,self.beta,
-												   burnin,thinning,self.samples)
+										self.N,self.V,self.K,self.D,self.alpha,self.beta,
+										burnin,thinning,self.samples)
 
 			self.tt = self.tt_comp(self.sampled_topics)
 			self.dt = self.dt_comp(self.sampled_topics)
@@ -528,8 +528,8 @@ class Query():
 		for s in xrange(self.samples):
 
 			self.sampled_topics[s,:] = samplers.sampler_query(self.docid, self.tokens, self.topic_seed,
-												np.ascontiguousarray(self.tt[:,:,s], dtype=np.float),
-												self.N, self.K, self.D, self.alpha, query_samples)
+											np.ascontiguousarray(self.tt[:,:,s], dtype=np.float),
+											self.N, self.K, self.D, self.alpha, query_samples)
 
 			print("Sample %d queried" % s)
 
