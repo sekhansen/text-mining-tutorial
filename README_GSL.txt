@@ -1,7 +1,7 @@
 This README describes the step by step installation to incorporate GSL into 
 Stephen Hansen's Topic Modelling Python package
 
-### OSX-64, Linux-64 or Linux-32
+## OSX-64, Linux-64 or Linux-32
 
 Step 1: Install GSL on your machine.
 
@@ -60,7 +60,7 @@ Step 6: Ensure that samplers.so is now in /home/usr/anaconda/lib/site-packages.
 
 The samplers module is now installed on your machine with GSL
 
-### Windows-32 or Windows-64
+## Windows-32 or Windows-64
 
 Step 1: Install GSL on your machine.
 
