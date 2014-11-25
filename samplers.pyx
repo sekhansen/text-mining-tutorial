@@ -52,7 +52,7 @@ cdef int multinomial_sample( double* p, int K ):
 
 	cdef int new_topic
 #	cdef double rnd = gsl_rng_uniform(r)*p[K-1] ## code for using GSL random number generator
-	cdef double rnd = np.random.random_sample*p[K-1]
+	cdef double rnd = np.random.random_sample()*p[K-1]
 
 	for new_topic in xrange(K):
 		if p[new_topic] > rnd:break
