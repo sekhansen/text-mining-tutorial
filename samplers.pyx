@@ -20,6 +20,9 @@ FTYPE = np.float
 ctypedef np.int_t DTYPE_t
 ctypedef np.float_t FTYPE_t
 
+##### code block for importing and initializing GSL uniform random number generator #######
+
+'''
 cdef extern from "gsl/gsl_rng.h":
 	ctypedef struct gsl_rng_type:
 		pass
@@ -38,6 +41,7 @@ cdef gsl_rng *r = gsl_rng_alloc(gsl_rng_mt19937)
 #Execute gsl_rng_set with a large number (time) which reasonably
 #can be assumed to be unique to avoid similar sequences
 gsl_rng_set(r, <unsigned long> time.time()*256)
+'''
 
 
 cdef int multinomial_sample( double* p, int K ):
@@ -47,7 +51,8 @@ cdef int multinomial_sample( double* p, int K ):
 	"""
 
 	cdef int new_topic
-	cdef double rnd = gsl_rng_uniform(r)*p[K-1]
+#	cdef double rnd = gsl_rng_uniform(r)*p[K-1] ## code for using GSL random number generator
+	cdef double rnd = np.random.random_sample*p[K-1]
 
 	for new_topic in xrange(K):
 		if p[new_topic] > rnd:break
