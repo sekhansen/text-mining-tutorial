@@ -65,7 +65,7 @@ The commands are also available in tutorial.py in case you prefer running them a
 
 While primarily written as an introduction, the code for the project should also be suitable for analysis on datasets with at least several million words, which includes many of interest to social scientists.  For very large datasets, a more scalable solution is likely best (note that even when fully optimized, Gibbs sampling tends to be slow compared to other inference algorithms).
 
-One way of improving performance (around 30%) is to use the GNU Scientific Library's random number generator in samplers.pyx instead of numpy's.  The code for doing this is commented out.  If you wish to do this, you need to install GSL on your machine and modify the setup.py file to include the paths to GSL.
+One way of improving performance (around 30%) is to use the GNU Scientific Library's random number generator in samplers.pyx instead of numpy's.  The code for doing this is commented out.  If you wish to do this, you need to install GSL on your machine and modify the setup.py file to include the paths to GSL.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto for preparing this).
 
 In terms of memory, one should keep in mind that each sample has an associated document-topic and term-topic matrix stored in the background.  For large datasets, this may become an issue when trying to store many samples concurrently. 
 
