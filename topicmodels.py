@@ -300,7 +300,7 @@ class LDA():
 		Automatically generate term-topic and document-topic matrices.
 		"""
 
-		assert sampled_topics.dtype == np.int and len(sampled_topics.shape) < 2 	
+		assert sampled_topics.dtype == np.int and len(sampled_topics.shape) <= 2 	
 
 		if len(sampled_topics.shape) == 1: self.sampled_topics = sampled_topics.reshape(1,sampled_topics.shape[0])
 		else: self.sampled_topics = self.sampled_topics
