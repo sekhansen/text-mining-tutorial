@@ -303,7 +303,7 @@ class LDA():
 		assert sampled_topics.dtype == np.int and len(sampled_topics.shape) <= 2 	
 
 		if len(sampled_topics.shape) == 1: self.sampled_topics = sampled_topics.reshape(1,sampled_topics.shape[0])
-		else: self.sampled_topics = self.sampled_topics
+		else: self.sampled_topics = sampled_topics
 
 		self.samples = self.sampled_topics.shape[0]
 
