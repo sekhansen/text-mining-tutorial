@@ -6,9 +6,7 @@ Python script for tutorial illustrating collapsed Gibbs sampling for Latent Diri
 See explanation for commands on http://nbviewer.ipython.org/url/www.econ.upf.edu/~shansen/tutorial_notebook.ipynb.
 """
 
-import itertools
 import pandas as pd
-
 import topicmodels
 
 ########## select data on which to run topic model #########
@@ -25,8 +23,9 @@ docsobj.stem()
 docsobj.tf_idf("stems")
 docsobj.stopword_remove("stems",5000)
 
-print("number of stems = %d" % len(set(itertools.chain(*docsobj.stems))))
-print("number of total words = %d" % len(list(itertools.chain(*docsobj.stems))))
+all_stems = [s for d in docsobj.stems for s in d]
+print("number of unique stems = %d" % len(set(all_stems)))
+print("number of total stems = %d" % len(all_stems))
 
 ########## estimate topic model #########
 
