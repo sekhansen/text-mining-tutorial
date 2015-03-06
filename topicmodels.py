@@ -134,6 +134,14 @@ class RawDocs():
 
 		self.N = len(self.docs)
 		self.tokens = map(wordpunct_tokenize,self.docs)
+		
+	def phrase_replace(self,replace_dict):
+		def r(tokens):
+			text = ' ' + ' '.join(tokens)
+			for k,v in replace_dict.iteritems():
+				text = text.replace(" " + k + " "," " + v + " ")
+			return text.split()
+		self.stems = map(r,self.stems)
 
 		
 	def token_clean(self,length,numbers=True):
