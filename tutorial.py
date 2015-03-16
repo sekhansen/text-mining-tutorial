@@ -38,7 +38,7 @@ ldaobj.samples_keep(4)
 ldaobj.topic_content(20)
 
 dt = ldaobj.dt_avg()
-tt = ldaobj.dt_avg()
+tt = ldaobj.tt_avg()
 ldaobj.dict_print()
 
 data = data.drop('speech',1)
