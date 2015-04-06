@@ -125,6 +125,8 @@ class RawDocs():
 		if stopword_file:
 			with codecs.open(stopword_file,'r','utf-8') as f: raw = f.read()
 			self.stopwords = set(raw.splitlines())
+		else:
+			self.stopwords = set()
 
 		if contraction_split:
 			for k,v in contractions.iteritems():
@@ -391,7 +393,7 @@ class LDA():
 		return tt
 
 
-	def topic_content(self,W):
+	def topic_content(self,W,output_file = "topic_description.csv"):
 
 		"""
 		Print top W words in each topic to file.
@@ -403,7 +405,7 @@ class LDA():
 			top_word_indices = self.tt[:,t,self.samples-1].argsort()[-W:][::-1]
 			topic_top_words.append([self.token_key.keys()[self.token_key.values().index(i)] for i in top_word_indices])
 
-		with codecs.open("topic_description.csv","w","utf-8") as f:
+		with codecs.open(output_file,"w","utf-8") as f:
 			for t in xrange(self.K):
 				words = ','.join(topic_top_words[t])
 				f.write("topic" + str(t) + ',')
@@ -435,35 +437,35 @@ class LDA():
 		self.samples = len(index)
 
 
-	def tt_avg(self,print_output=True):
+	def tt_avg(self, print_output=True, output_file = "tt.csv"):
 
 		"""
 		Compute average term-topic matrix, and print to file if print_output=True.
 		"""		
 
 		avg = self.tt.mean(axis=2)
-		if print_output: np.savetxt("tt.csv", avg, delimiter = ",")
+		if print_output: np.savetxt(output_file, avg, delimiter = ",")
 		return avg
 
 
-	def dt_avg(self,print_output=True):
+	def dt_avg(self, print_output=True, output_file = "dt.csv"):
 
 		"""
 		Compute average document-topic matrix, and print to file if print_output=True.
 		"""	
 
 		avg = self.dt.mean(axis=2)
-		if print_output: np.savetxt("dt.csv", avg, delimiter = ",")
+		if print_output: np.savetxt(output_file, avg, delimiter = ",")
 		return avg
 
 
-	def dict_print(self):
+	def dict_print(self, output_file = "dict.csv"):
 
 		"""
 		Print mapping from tokens to numeric indices.
 		"""	
 
-		with codecs.open("dict.csv","w",encoding='utf-8') as f:
+		with codecs.open(output_file,"w",encoding='utf-8') as f:
 			for (v,k) in self.token_key.items(): f.write("%s,%d\n" % (v,k))
 
 
@@ -556,12 +558,12 @@ class Query():
 		return samplers.perplexity_comp(self.docid,self.tokens,self.tt,self.dt,self.N,self.K,self.samples)
 
 
-	def dt_avg(self,print_output=True):
+	def dt_avg(self, print_output=True, output_file = "dt_query.csv"):
 
 		"""
 		Compute average document-topic matrix, and print to file if print_output=True.
 		"""	
-		
+
 		avg = self.dt.mean(axis=2)
-		if print_output: np.savetxt("dt_query.csv", avg, delimiter = ",")
+		if print_output: np.savetxt(output_file, avg, delimiter = ",")
 		return avg
