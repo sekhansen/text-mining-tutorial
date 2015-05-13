@@ -261,6 +261,7 @@ class LDA():
 
 		self.K = K
 		self.D = len(docs)
+		self.docs = docs
 
 		doc_list = list(itertools.chain(*docs))
 		self.token_key = {}
@@ -467,6 +468,62 @@ class LDA():
 
 		with codecs.open(output_file,"w",encoding='utf-8') as f:
 			for (v,k) in self.token_key.items(): f.write("%s,%d\n" % (v,k))
+
+	def sentiment(self,alpha,tone_list,doc_ids,absolute=False):
+		"""
+		Compute the DxKxS-dimensional object of document tone.
+
+		alpha: threshhold for which topic makes up at least alpha (percent) of document
+		tone_list: list of tonal words to check 
+		doc_ids: dataframe object of identifiers for each paragraph
+		absolute: weigh each document equally regardless of threshhold 
+		"""
+
+		paragraphs = pd.Series(self.docs)
+
+		def sentiment_frequency(word_list):
+			freqs = pd.Series(collections.Counter(word_list))
+			return freqs.loc[set(freqs.index.values)&set(tone_list)].sum()
+
+		#Find frequency of each paragraph, for each topic, of tonal words
+		tone_freqs = paragraphs.apply(sentiment_frequency)
+
+		#Create DX1 vector of total words for each paragraph
+		total_words = paragraphs.apply(lambda x: len(x))
+
+		#Cycle through each sample and use the self.dt to compute sentiment weights
+		first = True
+		for sample in xrange(self.samples):
+			#Create dummy variable if paragraph passes threshold alpha for topic k
+			phi_dummy_mat = np.where(self.dt[:,:,sample]>alpha,1,0)
+
+			#Create DxK matrix of frequencies
+			s = np.einsum('ij,i->ij',phi_dummy_mat,tone_freqs)
+
+			#Include all word counts if equal weighted, if not only include if above alpha
+			if absolute:
+				total = np.einsum('ij,i->ij',np.where(phi_dummy_mat==0,1,1),total_words) 
+			else:
+				total = np.einsum('ij,i->ij',phi_dummy_mat,total_words)
+
+			#Create dataframes for tonal frequencies & word counts, combined with doc_ids
+			df1 = pd.DataFrame(s).join(doc_ids)
+			df2 = pd.DataFrame(total).join(doc_ids)
+
+			#Collapse (sum) each document over paragraphs
+			numer = df1.groupby(doc_ids.columns.values.tolist()).sum()
+			denom = df2.groupby(doc_ids.columns.values.tolist()).sum()
+
+			#Divide the frequencies by the word counts
+			s_pr = np.divide(np.asmatrix(numer,dtype='float'),np.asmatrix(denom))
+
+			#Add to the s object for the LDA object
+			if first: 
+				sentiment_mat = np.zeros([s_pr.shape[0],self.K,self.samples])
+				first = False
+			sentiment_mat[:,:,sample] = s_pr
+			
+		return sentiment_mat
 
 
 class Query():
