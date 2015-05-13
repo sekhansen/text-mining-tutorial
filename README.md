@@ -56,7 +56,7 @@ Part of the code is written in Cython, which should be compiled using the follow
 
 ### FOLLOWING THE TUTORIAL
 
-Type “ipython qtconsole”, which launches ipython in a separate window with enhanced graphics.  You should make sure that your current working directory is the tutorial folder.  To check this, you can type “pwd” to see the working directory.  If you need to change it, use the cd command.  The easiest option is to copy and paste the commands on <http://nbviewer.ipython.org/url/www.econ.upf.edu/~shansen/tutorial_notebook.ipynb> into iPython (the notebook is also provided for convenience).  
+Type “ipython qtconsole”, which launches ipython in a separate window with enhanced graphics.  You should make sure that your current working directory is the tutorial folder.  To check this, you can type “pwd” to see the working directory.  If you need to change it, use the cd command.  The easiest option is to copy and paste the commands from the notebook into iPython (the notebook can be viewed on http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb and is also provided for convenience).  
 
 The commands are also available in tutorial.py in case you prefer running them as a plain Python script.
 
