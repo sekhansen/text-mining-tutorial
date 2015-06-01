@@ -248,6 +248,59 @@ class RawDocs():
 			raise ValueError("Items must be either \'tokens\' or \'stems\'.")
 
 
+class Count():
+
+	def __init__(self,docs):
+
+		"""
+		Class for counting tokens in docs.
+		"""
+
+		self.docs = docs
+		self.N = len(docs)
+		self.docs_length = map(lambda x: len(x),self.docs)
+
+
+	def token_count(self, token):
+
+		"""
+		Return number of times token appears in docs
+		"""
+	
+		def count(tokens,token): return tokens.count(token)
+		
+		token = [token]*self.N
+
+		return map(count,self.docs,token)
+
+
+	def numbers(self):
+
+		"""
+		Count numeric strings in string
+		"""
+
+		def number_count(tokens): return sum(map(lambda x: x.isnumeric(),tokens))
+
+		return map(number_count,self.docs)
+
+
+	def dict_list_count(self,dict_list):
+
+		"""
+		Count words in dictionary defined by dict_list
+		"""
+
+		def dict_count(tokens):
+			counts = collections.Counter(tokens)
+			temp = 0
+			for tok in dict_list: temp += counts[tok]
+			return temp
+
+		return map(dict_count,self.docs)
+
+
+
 class LDA():
 
 	def __init__(self, docs, K):
