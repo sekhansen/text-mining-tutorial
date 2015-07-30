@@ -21,10 +21,10 @@ import sys
 #    libraries=["gsl","gslcblas","m"]
 #)
 
-ext = Extension("samplers", ["samplers.pyx"],
+ext = Extension("topicmodels.samplers.samplers_lda", ["topicmodels/samplers/samplers_lda.pyx"],
     include_dirs=[numpy.get_include()]
 )
  
-setup(name = "samplers",
+setup(name = "topicmodels.samplers.samplers_lda",
 	ext_modules=[ext],
     cmdclass = {'build_ext': build_ext})

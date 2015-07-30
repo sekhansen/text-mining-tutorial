@@ -23,13 +23,11 @@ This project introduces Latent Dirichlet Allocation (LDA) to those who do not ne
 
 The contents of the tutorial folder are as follows:
 
-1. speech_data_extend.txt: Data on State of the Union Addresses
-2. samplers.pyx: Cython code for performing Gibbs sampling as in Griffiths and Steyvers (2004).
-3. setup.py: Python code for converting samplers.pyx into a Python extension module.
-4. topicmodels.py: Python code for cleaning text and estimating LDA.
-5. stopwords.txt: A list of common English words.
-6. tutorial_notebook.ipynb: iPython notebook for the tutorial.
-7. tutorial.py: Python code with the key commands for the tutorial.
+1. topicmodels: Python/Cython code for cleaning text and estimating LDA via collapsed Gibbs sampling as in Griffiths and Steyvers (2004).
+2. speech_data_extend.txt: Data on State of the Union Addresses.
+3. tutorial_notebook.ipynb: iPython notebook for the tutorial.
+4. tutorial.py: Python code with the key commands for the tutorial.
+5. setup.py: File for compiling Cython code into C library.
 
 
 ### INSTALLING PYTHON
@@ -65,7 +63,7 @@ The commands are also available in tutorial.py in case you prefer running them a
 
 While primarily written as an introduction, the code for the project should also be suitable for analysis on datasets with at least several million words, which includes many of interest to social scientists.  For very large datasets, a more scalable solution is likely best (note that even when fully optimized, Gibbs sampling tends to be slow compared to other inference algorithms).
 
-One way of improving performance (around 30%) is to use the GNU Scientific Library's random number generator in samplers.pyx instead of numpy's.  The code for doing this is commented out.  If you wish to do this, you need to install GSL on your machine and modify the setup.py file to include the paths to GSL.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto for preparing this).
+One way of improving performance (around 30%) is to use the GNU Scientific Library's random number generator in samplers.pyx instead of numpy's.  The code for doing this is commented out.  If you wish to do this, you need to install GSL on your machine and modify the setup.py file to include the paths to GSL.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto at UPF for preparing this).
 
 In terms of memory, one should keep in mind that each sample has an associated document-topic and term-topic matrix stored in the background.  For large datasets, this may become an issue when trying to store many samples concurrently. 
 

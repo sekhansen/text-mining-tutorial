@@ -2,7 +2,7 @@
 #cython: wraparound=False
 
 """
-(c) 2014, Stephen Hansen, stephen.hansen@upf.edu
+(c) 2015, Stephen Hansen, stephen.hansen@upf.edu
 
 Cython script for collapsed Gibbs sampling for Latent Dirichlet Allocation (and related functions)
 """

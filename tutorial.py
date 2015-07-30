@@ -1,9 +1,9 @@
 """
-(c) 2014, Stephen Hansen, stephen.hansen@upf.edu
+(c) 2015, Stephen Hansen, stephen.hansen@upf.edu
 
 Python script for tutorial illustrating collapsed Gibbs sampling for Latent Dirichlet Allocation.
 
-See explanation for commands on http://nbviewer.ipython.org/url/www.econ.upf.edu/~shansen/tutorial_notebook.ipynb.
+See explanation for commands on http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb.
 """
 
 import pandas as pd
@@ -16,12 +16,13 @@ data = data[data.year >= 1947]
 
 ########## clean documents #########
 
-docsobj = topicmodels.RawDocs(data.speech, "stopwords.txt")
+docsobj = topicmodels.RawDocs(data.speech, "long")
 docsobj.token_clean(1)
 docsobj.stopword_remove("tokens")
 docsobj.stem()
-docsobj.tf_idf("stems")
-docsobj.stopword_remove("stems",5000)
+docsobj.stopword_remove("stems")
+docsobj.term_rank("stems")
+docsobj.rank_remove("tfidf","stems",docsobj.tfidf_ranking[5000][1])
 
 all_stems = [s for d in docsobj.stems for s in d]
 print("number of unique stems = %d" % len(set(all_stems)))
@@ -29,7 +30,7 @@ print("number of total stems = %d" % len(all_stems))
 
 ########## estimate topic model #########
 
-ldaobj = topicmodels.LDA(docsobj.stems,30)
+ldaobj = topicmodels.LDA.LDAGibbs(docsobj.stems,30)
 
 ldaobj.sample(0,50,10)
 ldaobj.sample(0,50,10)
@@ -51,7 +52,7 @@ data['speech'] = [' '.join(s) for s in docsobj.stems]
 aggspeeches = data.groupby(['year','president'])['speech'].apply(lambda x: ' '.join(x))
 aggdocs = topicmodels.RawDocs(aggspeeches)
 
-queryobj = topicmodels.Query(aggdocs.tokens,ldaobj.token_key,ldaobj.tt)
+queryobj = topicmodels.LDA.QueryGibbs(aggdocs.tokens,ldaobj.token_key,ldaobj.tt)
 queryobj.query(10)
 queryobj.perplexity()
 queryobj.query(30)
