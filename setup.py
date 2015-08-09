@@ -14,7 +14,7 @@ import sys
 #	lib_gsl_dir = sys.exec_prefix+"\\lib"
   
      
-#ext = Extension("samplers", ["samplers.pyx"],
+#ext = Extension("topicmodels.samplers.samplers_lda", ["topicmodels/samplers/samplers_lda.pyx"],
 #    include_dirs=[numpy.get_include(), 
 #                  include_gsl_dir],
 #    library_dirs=[lib_gsl_dir],
