@@ -235,11 +235,14 @@ class LDAGibbs():
 		with codecs.open(output_file,"w",encoding='utf-8') as f:
 			for (v,k) in self.token_key.items(): f.write("%s,%d\n" % (v,k))
 			
-	def dendrogram(self, data = self.tt_avg()):
+	def dendrogram(self, data = None):
 		"""
 		Return a matplotlib plt object and the dendrogram matrix 
 			data must be a DxK matrix of term topic distribution
 		"""
+		if data ==None:
+			print 'Note: Using the average of the tt matrices'
+			data = self.tt_avg()
 		def augmented_dendrogram(*args, **kwargs):
 		    ddata = dendrogram(*args, **kwargs)
 		    dcoords = pd.DataFrame(ddata['dcoord']).replace({0:np.nan})
