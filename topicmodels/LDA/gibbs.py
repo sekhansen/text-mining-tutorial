@@ -242,7 +242,8 @@ class LDAGibbs():
 		"""
 		if data ==None:
 			print 'Note: Using the average of the tt matrices'
-			data = self.tt_avg()
+			print 'To use a specific tt matrix, run self.dendrogram(data=tt[1,:,:])'
+			data = self.tt_avg().T
 		def augmented_dendrogram(*args, **kwargs):
 		    ddata = dendrogram(*args, **kwargs)
 		    dcoords = pd.DataFrame(ddata['dcoord']).replace({0:np.nan})
@@ -253,10 +254,10 @@ class LDAGibbs():
 		        for i, d in zip(ddata['icoord'], ddata['dcoord']):
 		            x = 0.5 * sum(i[1:3])
 		            y = d[1]
-		            #plt.plot(x, y, 'ro')
-		            #plt.annotate("%.3g" % y, (x, y), xytext=(0, -8),
-		            #             textcoords='offset points',
-		            #             va='top', ha='center')
+		            # plt.plot(x, y, 'ro')
+		            # plt.annotate("%.3g" % y, (x, y), xytext=(0, -8),
+		            #              textcoords='offset points',
+		            #              va='top', ha='center')
 			    plt.ylim(ymin=minimum*0.95,ymax=maximum*1.05)
 			    return ddata
 		
@@ -274,6 +275,19 @@ class LDAGibbs():
 		               truncate_mode='lastp',
 		               show_leaf_counts=True,
 		               )
+
+		#Get the top words in topic as x axis labels
+		topic_top_words = []
+
+		tt = data.T
+
+		for t in xrange(self.K):
+			top_word_indices = tt[:,t].argsort()[-3:][::-1]
+			topic_top_words.append([self.token_key.keys()[self.token_key.values().index(i)] for i in top_word_indices])
+
+		new_labels = [' '.join(topic_top_words[el])+' '+str(el) for el in ddata['leaves']]
+		plt.xticks(plt.xticks()[0],new_labels,rotation=40,ha='right')
+		plt.tight_layout()
 		plt.title("Dendrogram")
 		return plt,ddata
 
