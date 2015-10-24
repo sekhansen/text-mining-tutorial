@@ -290,7 +290,7 @@ class LDAGibbs():
 
 		new_labels = [' '.join(topic_top_words[el])+' '+str(el) for el in ddata['leaves']]
 		plt.xticks(plt.xticks()[0],new_labels,rotation=40,ha='right')
-		plt.tight_layout()
+		plt.tight_layout(pad=1)
 		plt.title("Dendrogram")
 		return plt,ddata
 
