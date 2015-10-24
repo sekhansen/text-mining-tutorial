@@ -7,6 +7,9 @@ from __future__ import division
 import codecs,collections,itertools,os,re
 import numpy as np
 import pandas as pd
+# # Uncomment for web applications/servers
+# import matplotlib 
+# matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import dendrogram, linkage
 
