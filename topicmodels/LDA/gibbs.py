@@ -253,10 +253,10 @@ class LDAGibbs():
 		        for i, d in zip(ddata['icoord'], ddata['dcoord']):
 		            x = 0.5 * sum(i[1:3])
 		            y = d[1]
-		            plt.plot(x, y, 'ro')
-		            plt.annotate("%.3g" % y, (x, y), xytext=(0, -8),
-		                         textcoords='offset points',
-		                         va='top', ha='center')
+		            #plt.plot(x, y, 'ro')
+		            #plt.annotate("%.3g" % y, (x, y), xytext=(0, -8),
+		            #             textcoords='offset points',
+		            #             va='top', ha='center')
 			    plt.ylim(ymin=minimum*0.95,ymax=maximum*1.05)
 			    return ddata
 		
