@@ -113,7 +113,9 @@ class LDAGibbs():
 
 			self.samples = samples
 
-			self.sampled_topics = samplers_lda.sampler(self.docid,self.tokens,self.topic_seed,
+			seed = np.copy(self.topic_seed)
+
+			self.sampled_topics = samplers_lda.sampler(self.docid,self.tokens,seed,
 										self.N,self.V,self.K,self.D,self.alpha,self.beta,
 										burnin,thinning,self.samples)
 
