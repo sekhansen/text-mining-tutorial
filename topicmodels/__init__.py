@@ -1,2 +1,3 @@
 from preprocess import *
-import LDA
+from bow import *
+import LDA, multimix

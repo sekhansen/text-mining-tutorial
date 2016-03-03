@@ -2,7 +2,7 @@
 
 by Stephen Hansen, stephen.hansen@upf.edu
 
-Assistant Professor of Economics, Universitat Pompeu Fabra
+Associate Professor of Economics, Universitat Pompeu Fabra
 
 ***
 
@@ -49,7 +49,7 @@ Part of the code is written in Cython, which should be compiled using the follow
 
 3.  Change directory to the folder containing the code and speech data by typing “cd path_to_tutorial”, where path_to_tutorial is the path to the folder.  On OS X (Windows) you can type “ls” (“dir”) on the command line to make sure all the files above are in the working directory.
 
-4. Type “python setup.py build_ext --inplace” into the command line. On Windows, if you get the error message “unable to find vcvarsall.bat,” try specifying the compiler by using the command “python setup.py build_ext --inplace --compiler=mingw32.”  On OS X, you may need to run the command as an administrator by typing “sudo python setup.py build_ext --inplace” and entering your password.  If the code successfully compiles, there should be no error messages, but potentially numerous warning messages relating to using a deprecated numpy API and unused functions.  These can be safely ignored.  
+4. Type “python setup.py build_ext --inplace” into the command line. On Windows, if you get the error message “unable to find vcvarsall.bat,” try specifying the compiler by using the command “python setup.py build_ext --inplace --compiler=mingw32,” or finding further information on <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>.  On OS X, you may need to run the command as an administrator by typing “sudo python setup.py build_ext --inplace” and entering your password.  If the code successfully compiles, there should be no error messages, but potentially numerous warning messages relating to using a deprecated numpy API and unused functions.  These can be safely ignored.  
 
 
 ### FOLLOWING THE TUTORIAL

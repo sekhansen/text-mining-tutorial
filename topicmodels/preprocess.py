@@ -8,11 +8,15 @@ import codecs,collections,itertools,re
 import numpy as np
 import pandas as pd
 
+import nltk
 from nltk.tokenize import wordpunct_tokenize
 from nltk import PorterStemmer
 
 import preprocess_data # contains stopwords and contractions
 
+pattern = re.compile('\W',re.UNICODE)
+
+def my_tokenize(text): return re.split(pattern,text)
 
 class RawDocs():
     
@@ -89,7 +93,22 @@ class RawDocs():
 		def s(tokens): return [PorterStemmer().stem(t) for t in tokens]
 		self.stems = map(s,self.tokens)
 
+
+	def bigram(self,items):
+
+		"""
+		generate bigrams of either items = "tokens" or "stems"
+		"""
+
+		def bigram_join(tok_list): 
+			text = nltk.bigrams(tok_list)
+			return map(lambda x: x[0] + '.' + x[1],text)
+
+		if items=="tokens":self.bigrams = map(bigram_join,self.tokens)
+		elif items=="stems":self.bigrams = map(bigram_join,self.stems)
+		else: raise ValueError("Items must be either \'tokens\' or \'stems\'.")
 		
+
 	def stopword_remove(self,items,threshold=False):
 
 		"""
