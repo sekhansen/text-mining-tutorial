@@ -7,6 +7,11 @@ from __future__ import division
 import codecs,collections,itertools,os,re
 import numpy as np
 import pandas as pd
+# # Uncomment for web applications/servers
+# import matplotlib 
+# matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 from topicmodels.samplers import samplers_lda
 
@@ -234,7 +239,62 @@ class LDAGibbs():
 
 		with codecs.open(output_file,"w",encoding='utf-8') as f:
 			for (v,k) in self.token_key.items(): f.write("%s,%d\n" % (v,k))
+			
+	def dendrogram(self, data = None):
+		"""
+		Return a matplotlib plt object and the dendrogram matrix 
+			data must be a DxK matrix of term topic distribution
+		"""
+		if data ==None:
+			print 'Note: Using the average of the tt matrices'
+			print 'To use a specific tt matrix, run self.dendrogram(data=tt[1,:,:])'
+			data = self.tt_avg().T
+		def augmented_dendrogram(*args, **kwargs):
+		    ddata = dendrogram(*args, **kwargs)
+		    dcoords = pd.DataFrame(ddata['dcoord']).replace({0:np.nan})
+		    minimum = dcoords.min().min()
+		    maximum = dcoords.max().max()
+		
+		    if not kwargs.get('no_plot', False):
+		        for i, d in zip(ddata['icoord'], ddata['dcoord']):
+		            x = 0.5 * sum(i[1:3])
+		            y = d[1]
+		            # plt.plot(x, y, 'ro')
+		            # plt.annotate("%.3g" % y, (x, y), xytext=(0, -8),
+		            #              textcoords='offset points',
+		            #              va='top', ha='center')
+			    plt.ylim(ymin=minimum*0.95,ymax=maximum*1.05)
+			    return ddata
+		
+		hellinger = lambda u, v: np.sqrt(((np.sqrt(u)-np.sqrt(v))**2).sum())/float(np.sqrt(2))
+		
+		linkage_matrix = linkage(data, method = "single", metric=hellinger)
+		
+		plt.figure(1, figsize=(10, 4))
+		plt.clf()
+		
+		plt.subplot(1, 1, 1)
+		ddata = augmented_dendrogram(linkage_matrix,
+		               color_threshold=1,
+		               p=data.shape[0],
+		               truncate_mode='lastp',
+		               show_leaf_counts=True,
+		               )
 
+		#Get the top words in topic as x axis labels
+		topic_top_words = []
+
+		tt = data.T
+
+		for t in xrange(self.K):
+			top_word_indices = tt[:,t].argsort()[-3:][::-1]
+			topic_top_words.append([self.token_key.keys()[self.token_key.values().index(i)] for i in top_word_indices])
+
+		new_labels = [' '.join(topic_top_words[el])+' '+str(el) for el in ddata['leaves']]
+		plt.xticks(plt.xticks()[0],new_labels,rotation=40,ha='right')
+		plt.tight_layout(pad=1)
+		plt.title("Dendrogram")
+		return plt,ddata
 
 class QueryGibbs():
 

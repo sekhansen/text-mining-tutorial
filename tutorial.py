@@ -76,3 +76,7 @@ ranking = ranking.sort('year')
 ranking = ranking.drop('year',1)
 ranking = ranking.apply(top_topics,axis=1)
 ranking.to_csv("president_top_topics.csv")
+
+########## Plot topics #########
+pltobj, dendrogram = ldaobj.dendrogram()
+pltobj.show()
