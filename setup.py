@@ -13,11 +13,7 @@ import sys
 #	include_gsl_dir = sys.exec_prefix+"\\include"
 #	lib_gsl_dir = sys.exec_prefix+"\\lib"
   
-include_gsl_dir = "/usr/local/include/"
-lib_gsl_dir = "/usr/local/lib/"
      
-<<<<<<< HEAD
-=======
 #ext = Extension("topicmodels.samplers.samplers_lda", ["topicmodels/samplers/samplers_lda.pyx"],
 #    include_dirs=[numpy.get_include(), 
 #                  include_gsl_dir],
@@ -25,17 +21,9 @@ lib_gsl_dir = "/usr/local/lib/"
 #    libraries=["gsl","gslcblas","m"]
 #)
 
->>>>>>> origin/master
 ext = Extension("topicmodels.samplers.samplers_lda", ["topicmodels/samplers/samplers_lda.pyx"],
-   include_dirs=[numpy.get_include(), 
-                 include_gsl_dir],
-   library_dirs=[lib_gsl_dir],
-   libraries=["gsl","gslcblas","m"]
+    include_dirs=[numpy.get_include()]
 )
-
-# ext = Extension("topicmodels.samplers.samplers_lda", ["topicmodels/samplers/samplers_lda.pyx"],
-#     include_dirs=[numpy.get_include()]
-# )
  
 setup(name = "topicmodels",
 	ext_modules=[ext],
