@@ -49,21 +49,21 @@ Part of the code is written in Cython, which should be compiled using the follow
 
 3.  Change directory to the folder containing the code and speech data by typing “cd path_to_tutorial”, where path_to_tutorial is the path to the folder.  On OS X (Windows) you can type “ls” (“dir”) on the command line to make sure all the files above are in the working directory.
 
-4. Type “python setup.py build_ext --inplace” into the command line. On Windows, if you get the error message “unable to find vcvarsall.bat,” try specifying the compiler by using the command “python setup.py build_ext --inplace --compiler=mingw32,” or finding further information on <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>.  On OS X, you may need to run the command as an administrator by typing “sudo python setup.py build_ext --inplace” and entering your password.  If the code successfully compiles, there should be no error messages, but potentially numerous warning messages relating to using a deprecated numpy API and unused functions.  These can be safely ignored.  
+4. Type “python setup.py build_ext --inplace” into the command line. On Windows, if you get the error message “unable to find vcvarsall.bat,” try specifying the compiler by using the command “python setup.py build_ext --inplace --compiler=mingw32,” or finding further information on <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>.  On OS X, you may need to run the command as an administrator by typing “sudo python setup.py build_ext --inplace” and entering your password.  If the code successfully compiles, there should be no error messages, but potentially numerous warning messages relating to using a deprecated numpy API and unused functions.  These can be safely ignored.
+
+5. To improve performance, I have used GNU Scientific Library's random number generator instead of numpy's.  This requires installing GSL on your local machine.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto at UPF for preparing this).  To avoid this, modify both the setup.py and samplers_lda.pyx files per the comments.
 
 
 ### FOLLOWING THE TUTORIAL
 
-Type “ipython qtconsole”, which launches ipython in a separate window with enhanced graphics.  You should make sure that your current working directory is the tutorial folder.  To check this, you can type “pwd” to see the working directory.  If you need to change it, use the cd command.  The easiest option is to copy and paste the commands from the notebook into iPython (the notebook can be viewed on http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb and is also provided for convenience).  
+The tutorial can either be followed using the plain tutorial.py script; by using ipython; or by using ipython with qtconsole for enhanced graphics.  To initiate the latter, type “jupyter qtconsole” (or in older versions "ipython qtconsole")  You should make sure that your current working directory is the tutorial folder.  To check this, you can type “pwd” to see the working directory.  If you need to change it, use the cd command.  
 
-The commands are also available in tutorial.py in case you prefer running them as a plain Python script.
+The easiest option is to copy and paste the commands from the notebook into ipython (the notebook can be viewed on http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb and is also provided for convenience).  
 
 
 ### PERFORMANCE
 
 While primarily written as an introduction, the code for the project should also be suitable for analysis on datasets with at least several million words, which includes many of interest to social scientists.  For very large datasets, a more scalable solution is likely best (note that even when fully optimized, Gibbs sampling tends to be slow compared to other inference algorithms).
-
-One way of improving performance (around 30%) is to use the GNU Scientific Library's random number generator in samplers.pyx instead of numpy's.  The code for doing this is commented out.  If you wish to do this, you need to install GSL on your machine and modify the setup.py file to include the paths to GSL.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto at UPF for preparing this).
 
 In terms of memory, one should keep in mind that each sample has an associated document-topic and term-topic matrix stored in the background.  For large datasets, this may become an issue when trying to store many samples concurrently. 
 
