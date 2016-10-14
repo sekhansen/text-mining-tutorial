@@ -46,6 +46,6 @@ ext = Extension("topicmodels.samplers.samplers_lda",
 
 setup(name="topicmodels",
       ext_modules=[ext],
-      packages=['topicmodels', 'topicmodels.LDA', 'topicmodels.samplers'],
+      packages=['topicmodels', 'topicmodels.LDA', 'topicmodels.multimix','topicmodels.samplers'],
       package_data={'topicmodels': ['*.txt']},
       cmdclass={'build_ext': build_ext})
