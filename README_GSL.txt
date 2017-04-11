@@ -3,7 +3,11 @@ Stephen Hansen's Topic Modelling Python package
 
 ## OSX-64, Linux-64 or Linux-32
 
-Step 1: Install GSL on your machine.
+Step 1: Make sure you have GCC installed on your machine.
+
+sudo apt-get install build-essential
+
+Step 2: Install GSL on your machine.
 
 Follow Aaron Meurer's (https://binstar.org/asmeurer) Conda installation for 
 GSL files  by typing the following line in your terminal:
@@ -13,11 +17,11 @@ conda install -c https://conda.binstar.org/asmeurer gsl
 The necessary files of GSL will now be installed in /home/usr/anaconda/lib and
 /home/usr/anaconda/include.
 
-Step 2: Download the Topic Modelling files from Stephen Hansen's github repo:
+Step 3: Download the Topic Modelling files from Stephen Hansen's github repo:
 
 https://github.com/sekhansen/text-mining-tutorial
 
-Step 3: Uncomment the hash-tagged sections of the setup.py folder such that the
+Step 4: Uncomment the hash-tagged sections of the setup.py folder such that the
 file now has the following content (Note the change to the "ext" variable).
 
 ---------------------------
@@ -29,8 +33,8 @@ import numpy
 import sys
 
 if sys.platform == "win32":
-	include_gsl_dir = sys.exec_prefix.lower().split("anaconda")[0]+"anaconda\\gsl\\include"
-	lib_gsl_dir = sys.exec_prefix.lower().split("anaconda")[0]+"anaconda\\gsl\\lib"
+	include_gsl_dir = sys.exec_prefix.lower().split("anaconda2")[0]+"anaconda\\gsl\\include"
+	lib_gsl_dir = sys.exec_prefix.lower().split("anaconda2")[0]+"anaconda\\gsl\\lib"
 else:
 	include_gsl_dir = sys.exec_prefix+"\\include"
 	lib_gsl_dir = sys.exec_prefix+"\\lib"
@@ -48,15 +52,15 @@ setup(name = "samplers",
 
 ---------------------------
 
-Step 4: CD in your Terminal into the folder with the GitHub files and the
+Step 5: CD in your Terminal into the folder with the GitHub files and the
 edited setup.py file. 
 
-Step 5: Execute the following commands in your Terminal:
+Step 6: Execute the following commands in your Terminal:
 
 python setup.py build_ext --inplace
 python setup.py install 
 
-Step 6: Ensure that samplers.so is now in /home/usr/anaconda/lib/site-packages.
+Step 7: Ensure that samplers.so is now in /home/usr/anaconda/lib/site-packages.
 
 The samplers module is now installed on your machine with GSL
 
