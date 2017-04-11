@@ -6,9 +6,9 @@ import numpy
 
 # See GSL Library
 # if sys.platform == "win32":
-#     include_gsl_dir = sys.exec_prefix.lower().split("anaconda")[0] + \
+#     include_gsl_dir = sys.exec_prefix.lower().split("anaconda2")[0] + \
 #         "anaconda\\gsl\\include"
-#     lib_gsl_dir = sys.exec_prefix.lower().split("anaconda")[0] + \
+#     lib_gsl_dir = sys.exec_prefix.lower().split("anaconda2")[0] + \
 #         "anaconda\\gsl\\lib"
 # else:
 #     include_gsl_dir = sys.exec_prefix+"\\include"
