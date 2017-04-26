@@ -1,8 +1,8 @@
 ## An Introduction to Topic Modelling via Gibbs sampling: Code and Tutorial
 
-by Stephen Hansen, stephen.hansen@upf.edu
+by Stephen Hansen, stephen.hansen@economics.ox.ac.uk
 
-Associate Professor of Economics, Universitat Pompeu Fabra
+Associate Professor of Economics, University of Oxford
 
 ***
 
