@@ -91,7 +91,7 @@ class EM():
 
             self.loglik[iter] = self.E_step()
             if np.isnan(self.loglik[iter]):
-                    print "undefined log-likelihood"
+                    print("undefined log-likelihood")
                     break
             self.M_step()
 
