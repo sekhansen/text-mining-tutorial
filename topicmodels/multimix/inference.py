@@ -101,7 +101,7 @@ class EM():
                              iter))
             elif self.loglik[iter] - self.loglik[iter - 1] < convergence \
                     and iter > 0:
-                    print ("convergence at iteration %d, loglik = %f" %
+                    print("convergence at iteration %d, loglik = %f" %
                            (iter, self.loglik[iter]))
                     self.loglik = self.loglik[self.loglik < 0]
                     break
