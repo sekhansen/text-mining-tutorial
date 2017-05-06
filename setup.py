@@ -30,19 +30,19 @@ lib_gsl_dir = "/usr/local/lib/"
 ##########
 # comment code block below if not using GSL
 ##########
-ext = Extension("topicmodels.samplers.samplers_lda",
-                ["topicmodels/samplers/samplers_lda.pyx"],
-                include_dirs=[numpy.get_include(), include_gsl_dir],
-                library_dirs=[lib_gsl_dir],
-                libraries=["gsl", "gslcblas", "m"])
+#ext = Extension("topicmodels.samplers.samplers_lda",
+#                ["topicmodels/samplers/samplers_lda.pyx"],
+#                include_dirs=[numpy.get_include(), include_gsl_dir],
+#                library_dirs=[lib_gsl_dir],
+#                libraries=["gsl", "gslcblas", "m"])
 
 ########
 # uncomment code block below to use numpy only without GSL
 ########
 
-# ext = Extension("topicmodels.samplers.samplers_lda",
-#                 ["topicmodels/samplers/samplers_lda.pyx"],
-#                 include_dirs=[numpy.get_include()])
+ext = Extension("topicmodels.samplers.samplers_lda",
+                 ["topicmodels/samplers/samplers_lda.pyx"],
+                 include_dirs=[numpy.get_include()])
 
 setup(name="topicmodels",
       ext_modules=[ext],
