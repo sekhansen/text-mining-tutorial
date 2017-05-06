@@ -265,9 +265,9 @@ class LDAGibbs():
         data must be a DxK matrix of term topic distribution
         """
         if data is None:
-            print 'Note: Using the average of the tt matrices'
-            print 'To use a specific tt matrix,\
-run self.dendrogram(data=tt[1,:,:])'
+            print('Note: Using the average of the tt matrices')
+            print('To use a specific tt matrix,\
+run self.dendrogram(data=tt[1,:,:])')
             data = self.tt_avg().T
 
         def augmented_dendrogram(*args, **kwargs):
