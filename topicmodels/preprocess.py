@@ -44,14 +44,14 @@ class RawDocs():
                 with codecs.open(doc_data, 'r', 'utf-8') as f:
                     raw = f.read()
             except UnicodeDecodeError:
-                print "File does not have utf-8 encoding"
+                print("File does not have utf-8 encoding")
             self.docs = raw.splitlines()
         elif isinstance(doc_data, collections.Iterable):
             try:
                 self.docs = [s.encode('utf-8').decode('utf-8')
                              for s in doc_data]
             except UnicodeDecodeError:
-                print "At least one string does not have utf-8 encoding"
+                print("At least one string does not have utf-8 encoding")
         else:
             raise ValueError("Either iterable of strings or file\
 must be passed to RawDocs")
