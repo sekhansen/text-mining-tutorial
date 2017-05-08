@@ -14,7 +14,8 @@ import nltk
 from nltk.tokenize import wordpunct_tokenize
 from nltk import PorterStemmer
 
-import preprocess_data  # contains stopwords and contractions
+#import preprocess_data  # contains stopwords and contractions
+from . import preprocess_data
 
 pattern = re.compile('\W', re.UNICODE)
 
