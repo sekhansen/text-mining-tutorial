@@ -8,7 +8,9 @@ import collections
 import itertools
 import numpy as np
 
-import bow_data  # contains dictionaries of interest
+#import bow_data  # contains dictionaries of interest
+from . import bow_data
+
 from nltk import PorterStemmer
 
 
