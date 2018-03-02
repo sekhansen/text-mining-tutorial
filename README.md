@@ -40,7 +40,7 @@ In addition to common scientific libraries, the tutorial also requires installat
 
 The only other requirement is that a C++ compiler is needed to build the Cython code. For Mac OS X you can download Xcode, while for Windows you can download the Visual Studio C++ compiler.
 
-To improve performance, I have used GNU Scientific Library's random number generator instead of numpy's in a separate branch located at <https://github.com/alan-turing-institute/topic-modelling-tools/tree/with_gsl>.  To use this version instead of the baseline version, install topicmodels with `pip install topic-modelling-tools_gsl`.  Using this version requires GSL to be installed.  See the README for the package for further information.
+To improve performance, I have used GNU Scientific Library's random number generator instead of numpy's in a separate branch located at <https://github.com/alan-turing-institute/topic-modelling-tools/tree/with_gsl>.  To use this version instead of the baseline version, install topicmodels with `pip install topic-modelling-tools_fast`.  Using this version requires GSL to be installed.  See the README for the package for further information.
 
 ### FOLLOWING THE TUTORIAL
 
