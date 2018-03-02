@@ -12,10 +12,9 @@ Thanks to Eric Hardy at Columbia University for collating data on speeches.
 
 If you use this software in research or educational projects, please cite: 
 
-Hansen, Stephen, Michael McMahon, and Andrea Prat (2014), “Transparency and Deliberation on the FOMC: A Computational Linguistics Approach,” CEPR Discussion Paper 9994.  
+Hansen, Stephen, Michael McMahon, and Andrea Prat (2018), “Transparency and Deliberation on the FOMC: A Computational Linguistics Approach,” *Quarterly Journal of Economics*.  
 
-***
-
+<br>
 
 ### INTRODUCTION
 
@@ -23,12 +22,9 @@ This project introduces Latent Dirichlet Allocation (LDA) to those who do not ne
 
 The contents of the tutorial folder are as follows:
 
-1. topicmodels: Python/Cython code for cleaning text and estimating LDA via collapsed Gibbs sampling as in Griffiths and Steyvers (2004).
-2. speech_data_extend.txt: Data on State of the Union Addresses.
-3. tutorial_notebook.ipynb: iPython notebook for the tutorial.
-4. tutorial.py: Python code with the key commands for the tutorial.
-5. setup.py: File for compiling Cython code into C library.
-
+1. speech\_data\_extend.txt: Data on State of the Union Addresses.
+2. tutorial_notebook.ipynb: iPython notebook for the tutorial.
+3. tutorial.py: Python code with the key commands for the tutorial.
 
 ### INSTALLING PYTHON
 
@@ -38,28 +34,19 @@ If iPython does not launch, then it may be that your anti-virus software conside
 
 For background on Python and iPython from an economics perspective, see <http://quant-econ.net/>.
 
+### INSTALLING TOPICMODELS PACKAGE
 
-### BUILDING SAMPLERS
+In addition to common scientific libraries, the tutorial also requires installation of the topicmodels package located at <https://github.com/alan-turing-institute/topic-modelling-tools>.  If you already have Python and pip installed (for example by installing Anaconda per the instructions above), `pip install topic-modelling-tools` should work.
 
-Part of the code is written in Cython, which should be compiled using the following steps:
+The only other requirement is that a C++ compiler is needed to build the Cython code. For Mac OS X you can download Xcode, while for Windows you can download the Visual Studio C++ compiler.
 
-1. For Mac OS X, download Xcode, which provides a C compiler.
-
-2. Find your operating system’s command line (NOT the iPython interpreter).  For Windows, search cmd from the start menu.  For Mac OS X, go to Applications >> Utilities >> Terminal.
-
-3.  Change directory to the folder containing the code and speech data by typing “cd path_to_tutorial”, where path_to_tutorial is the path to the folder.  On OS X (Windows) you can type “ls” (“dir”) on the command line to make sure all the files above are in the working directory.
-
-4. Type “python setup.py build_ext --inplace” into the command line. On Windows, if you get the error message “unable to find vcvarsall.bat,” try specifying the compiler by using the command “python setup.py build_ext --inplace --compiler=mingw32,” or finding further information on <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>.  On OS X, you may need to run the command as an administrator by typing “sudo python setup.py build_ext --inplace” and entering your password.  If the code successfully compiles, there should be no error messages, but potentially numerous warning messages relating to using a deprecated numpy API and unused functions.  These can be safely ignored.
-
-5. To improve performance, I have used GNU Scientific Library's random number generator instead of numpy's.  This requires installing GSL on your local machine.  Instructions for using GSL along with Anaconda are contained in the file README_GSL.txt (many thanks to Paul Soto at UPF for preparing this).  To avoid this, modify both the setup.py and samplers_lda.pyx files per the comments.
-
+To improve performance, I have used GNU Scientific Library's random number generator instead of numpy's in a separate branch located at <https://github.com/alan-turing-institute/topic-modelling-tools/tree/with_gsl>.  To use this version instead of the baseline version, install topicmodels with `pip install topic-modelling-tools_gsl`.  Using this version requires GSL to be installed.  See the README for the package for further information.
 
 ### FOLLOWING THE TUTORIAL
 
 The tutorial can either be followed using the plain tutorial.py script; by using ipython; or by using ipython with qtconsole for enhanced graphics.  To initiate the latter, type “jupyter qtconsole” (or in older versions "ipython qtconsole")  You should make sure that your current working directory is the tutorial folder.  To check this, you can type “pwd” to see the working directory.  If you need to change it, use the cd command.  
 
-The easiest option is to copy and paste the commands from the notebook into ipython (the notebook can be viewed on http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb and is also provided for convenience).  
-
+The easiest option is to copy and paste the commands from the notebook into ipython (the notebook can be viewed on <http://nbviewer.ipython.org/github/sekhansen/text-mining-tutorial/blob/master/tutorial_notebook.ipynb> and is also provided for convenience).  
 
 ### PERFORMANCE
 
