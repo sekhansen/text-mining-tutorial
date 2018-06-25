@@ -1,5 +1,5 @@
 """
-(c) 2015, Stephen Hansen, stephen.hansen@upf.edu
+(c) 2015, Stephen Hansen, stephen.hansen@economics.ox.ac.uk
 
 Python script for tutorial illustrating collapsed Gibbs sampling
 for Latent Dirichlet Allocation.
@@ -84,8 +84,8 @@ aggspeeches = data.groupby(['year'])['temp'].apply(lambda x: ' '.join(x))
 aggdocs = topicmodels.RawDocs(aggspeeches)
 
 queryobj = topicmodels.LDA.QueryGibbs(aggdocs.tokens,
-                                       ldaobj.token_key,
-                                       ldaobj.tt)
+                                      ldaobj.token_key,
+                                      ldaobj.tt)
 queryobj.query(10)
 
 dt_query = queryobj.dt_avg()
