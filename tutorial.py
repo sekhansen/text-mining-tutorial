@@ -86,11 +86,7 @@ temp = aggdata.reset_index()
 ranking = temp.set_index('president')
 ranking = ranking - ranking.mean()
 ranking = ranking.groupby(level='president').mean()
-ranking = ranking.sort('year')
+ranking = ranking.sort_values('year')
 ranking = ranking.drop('year', 1)
 ranking = ranking.apply(top_topics, axis=1)
 ranking.to_csv("president_top_topics.csv")
-
-########## Plot topics #########
-# pltobj, dendrogram = ldaobj.dendrogram()
-# pltobj.show()
