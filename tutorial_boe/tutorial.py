@@ -23,14 +23,25 @@ data_agg = data.groupby('year').agg(lambda x: ' '.join(x))
 
 docsobj = topicmodels.RawDocs(data_agg.minutes, "long")
 docsobj.token_clean(1)
+
+all_stems = [s for d in docsobj.tokens for s in d]
+print("number of unique stems = %d" % len(set(all_stems)))
+print("number of total stems = %d" % len(all_stems))
+
 docsobj.stopword_remove("tokens")
+
+all_stems = [s for d in docsobj.tokens for s in d]
+print("number of unique stems = %d" % len(set(all_stems)))
+print("number of total stems = %d" % len(all_stems))
+
 docsobj.stem()
 docsobj.stopword_remove("stems")
-docsobj.term_rank("stems")
 
 all_stems = [s for d in docsobj.stems for s in d]
 print("number of unique stems = %d" % len(set(all_stems)))
 print("number of total stems = %d" % len(all_stems))
+
+docsobj.term_rank("stems")
 
 bowobj = topicmodels.BOW(docsobj.stems)
 
@@ -58,10 +69,6 @@ docsobj.stopword_remove("tokens")
 docsobj.stem()
 docsobj.stopword_remove("stems")
 docsobj.term_rank("stems")
-
-all_stems = [s for d in docsobj.stems for s in d]
-print("number of unique stems = %d" % len(set(all_stems)))
-print("number of total stems = %d" % len(all_stems))
 
 ###############
 # estimate topic model
