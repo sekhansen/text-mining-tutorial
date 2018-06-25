@@ -1,5 +1,5 @@
 """
-(c) 2015, Stephen Hansen, stephen.hansen@upf.edu
+(c) 2015, Stephen Hansen, stephen.hansen@economics.ox.ac.uk
 
 Python script for tutorial illustrating collapsed Gibbs sampling
 for Latent Dirichlet Allocation.
