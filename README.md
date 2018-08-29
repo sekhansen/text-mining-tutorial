@@ -28,7 +28,7 @@ The contents of the tutorial folder are as follows:
 
 ### INSTALLING PYTHON
 
-The code relies on standard scientific libraries which are not part of a basic Python installation.  For those who do not already have them installed, the recommended option is to download the Anaconda distribution of Python 2.7 from <http://continuum.io/downloads> with the default settings.  After installation, you should be able to launch iPython directly from the Anaconda folder on OS X and Windows.  On Linux you can launch it by typing “ipython” from the command line.  (iPython is an enhanced Python interpreter particularly useful for scientific computing.)
+The code relies on standard scientific libraries which are not part of a basic Python installation.  For those who do not already have them installed, the recommended option is to download the Anaconda distribution of Python 2.7 from <https://www.anaconda.com/download/> with the default settings.  After installation, you should be able to launch iPython directly from the Anaconda folder on OS X and Windows.  On Linux you can launch it by typing “ipython” from the command line.  (iPython is an enhanced Python interpreter particularly useful for scientific computing.)
 
 If iPython does not launch, then it may be that your anti-virus software considers it a risk and blocks it.  For example, this may happen in some versions of Kaspersky 6.0 which, on starting iPython, quarantines the python.exe file which renders other (previously working) Python operations inoperable.  One option is to turn off the anti-virus software.  Another is to prevent the specific “Application Activity Analyzer” which interprets the “Input/output redirection” of iPython notebook as a threat which leads it to quarantine the Python executable.
 
