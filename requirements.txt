@@ -1,0 +1,6 @@
+topic-modelling-tools
+numpy >= 1.13.3
+nltk	 >= 3.2.4	
+pandas >= 0.20.3
+scipy >= 0.19.1
+Cython >= 0.20.1
