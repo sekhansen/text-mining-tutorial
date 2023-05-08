@@ -1,3 +1,9 @@
+### The topicmodels package that formed the basis of this tutorial is now retired.  Archives of the code are available at:
+### https://www.dropbox.com/s/klp7u6clahh1ztx/topic-modelling-tools-master.zip?dl=0 (no GSL)
+### https://www.dropbox.com/s/gxkqgjwc50qjtg5/topic-modelling-tools-with_gsl.zip?dl=0 (with GSL).
+### An alternative illustration of LDA is available at
+### https://github.com/sekhansen/text_algorithms_econ/blob/main/notebooks/3_LDA.ipynb.
+
 ## An Introduction to Topic Modelling via Gibbs sampling: Code and Tutorial
 
 by Stephen Hansen, stephen.hansen@economics.ox.ac.uk
